@@ -1,4 +1,9 @@
-# CSC207-Assignment5
+# CSC207 - Assignment5
+
+## Group Members
+* Charun Upara
+* Ally Rogers
+* Milo Reynolds
 
 
 ## Sources
