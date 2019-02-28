@@ -180,7 +180,12 @@ public class BlockChain {
    * @return true if valid, otherwise false
    */
   //public boolean isValidBlockChain() {
-
+   /*
+    * For each block, compute the hash based on the arguments, and compare
+    * it to the actual hash. 
+    * Then, we go to the next block and check that the block number and prev hash are correct
+    * 
+    */
   //} // isValidBlockChain()
 
   /**
