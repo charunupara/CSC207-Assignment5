@@ -6,6 +6,10 @@
 * Milo Reynolds
 
 
+## Contents
+All classes to implement a BlockChain for Assignment 5.
+
+
 ## Sources
 
 * Hex string format: https://stackoverflow.com/questions/13851743/how-to-format-numbers-to-a-hex-strings/13851790
