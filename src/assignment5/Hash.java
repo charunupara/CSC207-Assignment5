@@ -57,8 +57,7 @@ public class Hash {
   public String toString() {
     String hashStr = "";
     for (int i = 0; i < this.hash.length; i++) {
-      String temp = "" + Byte.toUnsignedInt(this.hash[i]);
-      hashStr += String.format("%x", temp);
+      hashStr += String.format("%x",  Byte.toUnsignedInt(this.hash[i]));
     } // for
     return hashStr;
   } // String toString()

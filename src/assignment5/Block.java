@@ -141,7 +141,7 @@ public class Block {
    * Gets the string equivalent to the Block
    */
   public String toString() {
-    return "Block " + this.blockNum + " (Amount: " + this.data + ", Nonce: " + this.nonce
+    return "Block " + (this.blockNum - 1) + " (Amount: " + this.data + ", Nonce: " + this.nonce
         + ", prevHash: " + this.prevHash + ", hash: " + this.hash + ")";
   } // toString()
 

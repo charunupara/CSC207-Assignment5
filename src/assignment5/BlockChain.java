@@ -39,8 +39,7 @@ public class BlockChain {
     if (initial <= 0) {
       throw new Exception("Initial amount must be > 0");
     } // if
-    this.first.value = new Block(1, initial, null);
-    this.first.next = null;
+    this.first = new Node<Block>(new Block(1, initial, null), null);
     this.last = null;
   } // BlockChain(int initial)
 
@@ -66,8 +65,8 @@ public class BlockChain {
     } // else
     int maxMoney = this.first.value.getAmount(); // maximum valid balance
     int currMoney = maxMoney; // current balance
-    Node<Block> currNode = this.first;
-    for (int i = 0; i < chainSize; i++) {
+    Node<Block> currNode = this.first.next;
+    for (int i = 1; i < chainSize; i++) {
       currMoney += currNode.value.getAmount();
       currNode = currNode.next;
     } // for (iterate through BlockChain)
@@ -112,8 +111,8 @@ public class BlockChain {
     // Check if amount of blk is valid
     int maxMoney = this.first.value.getAmount(); // maximum valid balance
     int currMoney = maxMoney; // current balance
-    Node<Block> currNode = this.first;
-    for (int i = 0; i < chainSize; i++) {
+    Node<Block> currNode = this.first.next;
+    for (int i = 1; i < chainSize; i++) {
       currMoney += currNode.value.getAmount();
       currNode = currNode.next;
     } // for (iterate through BlockChain)
@@ -180,9 +179,9 @@ public class BlockChain {
    * 
    * @return true if valid, otherwise false
    */
-  public boolean isValidBlockChain() {
+  //public boolean isValidBlockChain() {
 
-  } // isValidBlockChain()
+  //} // isValidBlockChain()
 
   /**
    * Print the current balances for Alice and Bob
@@ -197,8 +196,8 @@ public class BlockChain {
     } // else
     int maxMoney = this.first.value.getAmount(); // maximum valid balance
     int currMoney = maxMoney; // current balance
-    Node<Block> currNode = this.first;
-    for (int i = 0; i < chainSize; i++) {
+    Node<Block> currNode = this.first.next;
+    for (int i = 1; i < chainSize; i++) {
       currMoney += currNode.value.getAmount();
       currNode = currNode.next;
     } // for (iterate through BlockChain)
