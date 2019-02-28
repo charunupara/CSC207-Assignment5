@@ -103,11 +103,12 @@ public class BlockChain {
       chainSize = this.last.value.getNum();
       lastHash = this.last.value.getHash();
     } // else
-
+    
+    // Check validity of block number
     if (blk.getNum() != chainSize + 1) {
       throw new IllegalArgumentException("Block number invalid");
     } // if block number invalid
-
+    
     // Check if amount of blk is valid
     int maxMoney = this.first.value.getAmount(); // maximum valid balance
     int currMoney = maxMoney; // current balance
@@ -121,10 +122,10 @@ public class BlockChain {
       throw new IllegalArgumentException("Transaction amount " + blk.getAmount() + " invalid");
     } // if
 
+    // Other checks for block validity
     if (blk.getPrevHash() != lastHash) {
       throw new IllegalArgumentException("Block prevHash invalid");
     } // if prevHash invalid
-
     if (!(blk.getHash().isValid())) {
       throw new IllegalArgumentException("Block Hash invalid");
     } // if Hash invalid
@@ -149,10 +150,10 @@ public class BlockChain {
     if (this.last == null) {
       return false;
     } // if BlockChain has only one element
-    if (this.last.value.getNum() == 2) {
+    if (this.last.value.getNum() == 2) { // If BlockChain has 2 elements
       this.first.next = null;
       this.last = null;
-    } else {
+    } else { // If BlockChain has more than 2 elements
       int newLastIndex = this.last.value.getNum() - 1;
       Node<Block> currNode = this.first;
       for (int i = 0; i < newLastIndex; i++) {
