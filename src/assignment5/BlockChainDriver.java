@@ -12,16 +12,24 @@ import java.security.NoSuchAlgorithmException;
  * @author Milo Reynolds - reynolds4@grinnell.edu
  */
 public class BlockChainDriver {
-
+ /**
+  * Takes user input of base amount, continually accepts new commands until "quit" command entered
+  *
+  * @pre Exactly one command line argument is given, an integer > 0
+  * @pre User must follow rules of each command (exceptions handeled by their respective classes)
+  * @throws Exception if first precondition not met
+  */
   public static void main(String[] args) throws Exception, NoSuchAlgorithmException {
     if (args.length != 1) {
       throw new Exception("Invalid number of arguments");
     } // if
 
+    // Initializations
     BlockChain chain = new BlockChain(Integer.parseInt(args[0]));
     PrintWriter pen = new PrintWriter(System.out, true);
     Scanner reader = new Scanner(System.in); // Reading from System.in
 
+    // Print initial chain
     pen.println(chain.toString());
 
     // Print commands
@@ -39,8 +47,10 @@ public class BlockChainDriver {
     String command = reader.next();
     pen.println();
     
+    // Initialize next block to append (updated when mine command called)
     Block toAppend = null;
 
+    // Get and execute commands until command "quit" entered
     while (!command.equals("quit")) {
       if (command.equals("mine")) {
         pen.println("Enter transaction amount: ");
@@ -68,23 +78,23 @@ public class BlockChainDriver {
         pen.println("   report: reports the balances of Alice and Bob");
         pen.println("   help: prints this list of commands");
         pen.println("   quit: quits the program");
-
       } else {
         pen.println("Invalid command " + command);
       } // else
 
+      // Print BlockChain and get next command
       pen.println();
       pen.println(chain.toString());
       pen.println("Enter a command: ");
       command = reader.next();
       pen.println();
     } // while
-
     reader.close();
   } // main
 
 } // class BlockChainDriver
 
+// Unused code
 /*  pen.println("Enter transaction amount: ");
 int transAmnt = reader.nextInt();
 pen.println("Enter nonce: ");
