@@ -32,4 +32,5 @@ public class Node<T> {
     this.value = value;
     this.next = next;
   } // Node(T, Node<T>)
+  
 } // class Node<T>

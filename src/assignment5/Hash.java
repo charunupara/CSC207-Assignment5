@@ -73,4 +73,5 @@ public class Hash {
     } // if
     return false;
   } // equals(Object other)
+  
 } // class Hash
