@@ -8,6 +8,7 @@
 
 ## Contents
 All classes to implement a BlockChain for Assignment 5.
+NOTE: Includes file called oldisValidBlockChain.txt, please ignore.
 
 
 ## Sources
