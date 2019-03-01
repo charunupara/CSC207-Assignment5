@@ -1,0 +1,43 @@
+/**
+   * Checks if BlockChain is valid
+   * 
+   * @return true if valid, otherwise false
+   */
+  public boolean isValidBlockChain() throws NoSuchAlgorithmException {
+    // Check first Block
+    MessageDigest md = MessageDigest.getInstance("sha-256");
+    md.update(ByteBuffer.allocate(4).putInt(this.first.value.getNum()).array());
+    md.update(ByteBuffer.allocate(4).putInt(this.first.value.getAmount()).array());
+    md.update(ByteBuffer.allocate(8).putLong(this.first.value.getNonce()).array());
+    Hash hashResult = new Hash(md.digest());
+    if (!(hashResult.equals(this.first.value.getHash())) || !(this.first.value.getHash().isValid())) {
+      return false;
+    } // if
+    
+    // See if chain size = 1
+    if (this.last == null) {
+      return true;
+    } // if
+    
+    // Check all other block in the chain
+    Node<Block> prevNode = this.first;
+    Node<Block> thisNode = this.first.next;
+    int chainSize = this.last.value.getNum();
+    for (int i = 1; i < chainSize; i++) {
+      if (!(thisNode.value.getPrevHash().equals(prevNode.value.getHash()))) {
+        return false;
+      } // if prevHash doesn't match Hash of previous block
+      MessageDigest md2 = MessageDigest.getInstance("sha-256");
+      md2.update(ByteBuffer.allocate(4).putInt(thisNode.value.getNum()).array());
+      md2.update(ByteBuffer.allocate(4).putInt(thisNode.value.getAmount()).array());
+      md2.update(thisNode.value.prevHash.getData());
+      md2.update(ByteBuffer.allocate(8).putLong(thisNode.value.getNonce()).array());
+      Hash hashResult2 = new Hash(md.digest());
+      if (!(hashResult2.equals(thisNode.value.getHash())) || !(thisNode.value.getHash().isValid())) {
+        return false;
+      } // if block's hash doesn't match hash mined from its contents
+      prevNode = prevNode.next;
+      thisNode = thisNode.next;
+    } // for
+    return true;
+  } // isValidBlockChain()

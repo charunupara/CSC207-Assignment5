@@ -12,17 +12,17 @@ import java.security.NoSuchAlgorithmException;
  * @author Milo Reynolds - reynolds4@grinnell.edu
  */
 public class BlockChainDriver {
- /**
-  * Takes user input of base amount, continually accepts new commands until "quit" command entered
-  *
-  * @pre Exactly one command line argument is given, an integer > 0
-  * @pre User must follow rules of each command (exceptions handeled by their respective classes)
-  * @throws Exception if first precondition not met
-  */
+  /**
+   * Takes user input of base amount, continually accepts new commands until "quit" command entered
+   *
+   * @pre Exactly one command line argument is given, an integer > 0
+   * @pre User must follow rules of each command (exceptions handled by their respective classes)
+   * @throws Exception if first precondition not met
+   */
   public static void main(String[] args) throws Exception, NoSuchAlgorithmException {
     if (args.length != 1) {
       throw new Exception("Invalid number of arguments");
-    } // if
+    }
 
     // Initializations
     BlockChain chain = new BlockChain(Integer.parseInt(args[0]));
@@ -46,7 +46,7 @@ public class BlockChainDriver {
     pen.println("Enter a command: ");
     String command = reader.next();
     pen.println();
-    
+
     // Initialize next block to append (updated when mine command called)
     Block toAppend = null;
 
@@ -64,9 +64,15 @@ public class BlockChainDriver {
           chain.append(toAppend);
         } // else
       } else if (command.equals("remove")) {
-        chain.removeLast();
+        if (chain.removeLast() == false) {
+          pen.println("Cannot remove initial entry");
+        } // if
       } else if (command.equals("check")) {
-        
+        if (chain.isValidBlockChain()) {
+          pen.println("Block chain is valid");
+        } else {
+          pen.println("Invalid block chain");
+        } // else
       } else if (command.equals("report")) {
         chain.printBalances();
       } else if (command.equals("help")) {
@@ -90,12 +96,13 @@ public class BlockChainDriver {
       pen.println();
     } // while
     reader.close();
+    System.exit(0);
   } // main
 
 } // class BlockChainDriver
 
 // Unused code
-/*  pen.println("Enter transaction amount: ");
-int transAmnt = reader.nextInt();
-pen.println("Enter nonce: ");
-long newNonce = reader.nextLong(); */
+/*
+ * pen.println("Enter transaction amount: "); int transAmnt = reader.nextInt();
+ * pen.println("Enter nonce: "); long newNonce = reader.nextLong();
+ */

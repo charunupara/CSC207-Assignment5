@@ -19,7 +19,7 @@ public class BlockChain {
    * First node in chain
    */
   Node<Block> first;
-  
+
   /**
    * Last node in chain
    */
@@ -103,12 +103,12 @@ public class BlockChain {
       chainSize = this.last.value.getNum();
       lastHash = this.last.value.getHash();
     } // else
-    
+
     // Check validity of block number
     if (blk.getNum() != chainSize + 1) {
       throw new IllegalArgumentException("Block number invalid");
     } // if block number invalid
-    
+
     // Check if amount of blk is valid
     int maxMoney = this.first.value.getAmount(); // maximum valid balance
     int currMoney = maxMoney; // current balance
@@ -180,14 +180,35 @@ public class BlockChain {
    * 
    * @return true if valid, otherwise false
    */
-  //public boolean isValidBlockChain() {
-   /*
-    * For each block, compute the hash based on the arguments, and compare
-    * it to the actual hash. 
-    * Then, we go to the next block and check that the block number and prev hash are correct
-    * 
-    */
-  //} // isValidBlockChain()
+  public boolean isValidBlockChain() throws NoSuchAlgorithmException {
+    // Check first Block
+
+    if (this.first.value.getNum() != 1 || this.first.value.prevHash != null
+        || !(this.first.value.getHash().isValid())) {
+      return false;
+    } // if first block invalid
+
+    // See if chain size = 1
+    if (this.last == null) {
+      return true;
+    } // if chain is length 1
+
+    // Check all other block in the chain
+    Node<Block> prevNode = this.first;
+    Node<Block> thisNode = this.first.next;
+    int chainSize = this.last.value.getNum();
+    for (int i = 1; i < chainSize; i++) {
+      if (!(thisNode.value.getPrevHash().equals(prevNode.value.getHash()))) {
+        return false;
+      } // if prevHash doesn't match Hash of previous block
+      if (thisNode.value.getNum() != i + 1 || !(thisNode.value.getHash().isValid())) {
+        return false;
+      } // if block's hash doesn't match hash mined from its contents
+      prevNode = prevNode.next;
+      thisNode = thisNode.next;
+    } // for
+    return true;
+  } // isValidBlockChain()
 
   /**
    * Print the current balances for Alice and Bob
